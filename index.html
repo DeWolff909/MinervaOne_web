@@ -190,15 +190,18 @@
 						<p><a href="mailto:hello@minervaone.eu">hello@minervaone.eu</a></p>
 					</div>
 
-					<form class="contact-form card">
+					<form class="contact-form card" action="https://formspree.io/f/xvgzglzg" method="POST">
 						<label for="name">Name</label>
-						<input id="name" name="name" type="text" placeholder="Your name">
+						<input id="name" name="name" type="text" placeholder="Your name" required>
 
 						<label for="email">Email</label>
-						<input id="email" name="email" type="email" placeholder="Your email">
+						<input id="email" name="email" type="email" placeholder="Your email" required>
 
 						<label for="message">Message</label>
-						<textarea id="message" name="message" rows="5" placeholder="Your message"></textarea>
+						<textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+
+						<input type="hidden" name="_captcha" value="false">
+						<input type="hidden" name="_redirect" value="https://minervaone.eu/">
 
 						<button type="submit">Submit Inquiry</button>
 					</form>
