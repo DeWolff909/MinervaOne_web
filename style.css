@@ -613,11 +613,19 @@ h2 {
 
 .footer-block {
 	display: grid;
-	gap: 6px;
+	gap: 10px;
+}
+
+.footer-block p {
+	margin: 0;
+	line-height: 1.5;
 }
 
 .footer-links {
 	text-align: right;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .footer-bottom {
