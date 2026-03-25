@@ -190,7 +190,7 @@
 						<p><a href="mailto:hello@minervaone.eu">hello@minervaone.eu</a></p>
 					</div>
 
-					<form id="contact-form" class="contact-form card" action="https://formspree.io/f/maqlwvqb" method="POST">
+					<form id="contact-form" class="contact-form card" action="https://formspree.io/f/maqlwvqb" method="POST" onsubmit="return handleContactSubmit(event)">
 						<label for="name">Name</label>
 						<input id="name" name="name" type="text" placeholder="Your name" required>
 
@@ -203,6 +203,7 @@
 						<input type="text" name="_gotcha" style="display:none">
 						<input type="hidden" name="_captcha" value="false">
 						<input type="hidden" name="_redirect" value="https://minervaone.eu/thanks.html">
+						<input type="hidden" name="_next" value="https://minervaone.eu/thanks.html">
 
 						<button type="submit">Submit Inquiry</button>
 					</form>
@@ -229,40 +230,44 @@
 		</div>
 	</footer>
 	<script>
-		const contactForm = document.getElementById("contact-form");
+		async function handleContactSubmit(event) {
+			event.preventDefault();
+			const contactForm = event.target;
+			const submitButton = contactForm.querySelector("button[type='submit']");
 
-		if (contactForm) {
-			contactForm.addEventListener("submit", async function (event) {
-				event.preventDefault();
+			if (submitButton) {
+				submitButton.disabled = true;
+			}
 
-				const submitButton = contactForm.querySelector("button[type='submit']");
+			try {
+				const response = await fetch(contactForm.action, {
+					method: "POST",
+					body: new FormData(contactForm),
+					headers: {
+						Accept: "application/json"
+					}
+				});
+
+				if (response.ok) {
+					window.location.href = "https://minervaone.eu/thanks.html";
+					return false;
+				}
+
+				alert("Submission failed. Please try again in a moment.");
+			} catch (error) {
+				alert("Network error. Please try again in a moment.");
+			} finally {
 				if (submitButton) {
-					submitButton.disabled = true;
+					submitButton.disabled = false;
 				}
+			}
 
-				try {
-					const response = await fetch(contactForm.action, {
-						method: "POST",
-						body: new FormData(contactForm),
-						headers: {
-							Accept: "application/json"
-						}
-					});
+			return false;
+		}
 
-					if (response.ok) {
-						window.location.href = "https://minervaone.eu/thanks.html";
-						return;
-					}
-
-					alert("Submission failed. Please try again in a moment.");
-				} catch (error) {
-					alert("Network error. Please try again in a moment.");
-				} finally {
-					if (submitButton) {
-						submitButton.disabled = false;
-					}
-				}
-			});
+		const contactForm = document.getElementById("contact-form");
+		if (contactForm) {
+			contactForm.addEventListener("submit", handleContactSubmit);
 		}
 	</script>
 </body>
