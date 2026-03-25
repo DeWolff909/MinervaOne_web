@@ -190,7 +190,7 @@
 						<p><a href="mailto:hello@minervaone.eu">hello@minervaone.eu</a></p>
 					</div>
 
-					<form class="contact-form card" action="https://formspree.io/f/maqlwvqb" method="POST">
+					<form id="contact-form" class="contact-form card" action="https://formspree.io/f/maqlwvqb" method="POST">
 						<label for="name">Name</label>
 						<input id="name" name="name" type="text" placeholder="Your name" required>
 
@@ -228,5 +228,42 @@
 			<p>&copy; 2026 Minerva One. All rights reserved.</p>
 		</div>
 	</footer>
+	<script>
+		const contactForm = document.getElementById("contact-form");
+
+		if (contactForm) {
+			contactForm.addEventListener("submit", async function (event) {
+				event.preventDefault();
+
+				const submitButton = contactForm.querySelector("button[type='submit']");
+				if (submitButton) {
+					submitButton.disabled = true;
+				}
+
+				try {
+					const response = await fetch(contactForm.action, {
+						method: "POST",
+						body: new FormData(contactForm),
+						headers: {
+							Accept: "application/json"
+						}
+					});
+
+					if (response.ok) {
+						window.location.href = "https://minervaone.eu/thanks.html";
+						return;
+					}
+
+					alert("Submission failed. Please try again in a moment.");
+				} catch (error) {
+					alert("Network error. Please try again in a moment.");
+				} finally {
+					if (submitButton) {
+						submitButton.disabled = false;
+					}
+				}
+			});
+		}
+	</script>
 </body>
 </html>
