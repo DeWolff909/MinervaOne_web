@@ -34,8 +34,12 @@ body {
 body {
 	font-family: var(--font-ui);
 	color: var(--text);
-	background-color: #1b2430;
-	background-image: radial-gradient(circle at 50% 40%, #243447 0%, #1b2430 100%);
+	background-color: var(--bg);
+	background-image:
+		radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.025) 1px, transparent 0),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 24%),
+		linear-gradient(135deg, rgba(58, 135, 189, 0.035), transparent 34%);
+	background-size: 7px 7px, 100% 100%, 100% 100%;
 	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
 	text-rendering: geometricPrecision;
@@ -155,7 +159,7 @@ img {
 	position: relative;
 	overflow: hidden;
 	padding: clamp(80px 0 60px, 12vw, 120px 0 80px);
-	background: radial-gradient(circle at 50% 40%, #243447 0%, #1b2430 100%);
+	background-color: var(--bg);
 }
 
 .hero::before {
@@ -163,39 +167,19 @@ img {
 	position: absolute;
 	inset: 0;
 	background-image:
-		radial-gradient(circle at 50% 40%, rgba(58, 135, 189, 0.14) 0%, rgba(27, 36, 48, 0) 52%),
-		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%233A87BD' stroke-width='0.5' stroke-opacity='0.1'%3E%3Cpath d='M0 26H64V10H122'/%3E%3Cpath d='M0 66H46V90H96V116H158'/%3E%3Cpath d='M14 220V160H62V132H112'/%3E%3Cpath d='M220 48H170V86H124'/%3E%3Cpath d='M220 156H178V116H136V90H98'/%3E%3Cpath d='M156 220V178H126V150H82'/%3E%3C/g%3E%3C/svg%3E");
-	background-repeat: no-repeat, repeat;
-	background-size: 100% 100%, 220px 220px;
-	opacity: 1;
-	pointer-events: none;
-}
-
-.hero::after {
-	content: "";
-	position: absolute;
-	top: 42px;
-	right: 44px;
-	width: 280px;
-	height: 160px;
-	background-image:
-		linear-gradient(27deg, transparent 42%, rgba(210, 191, 145, 0.28) 50%, transparent 58%),
-		linear-gradient(-16deg, transparent 43%, rgba(210, 191, 145, 0.22) 50%, transparent 57%),
-		linear-gradient(11deg, transparent 44%, rgba(210, 191, 145, 0.2) 50%, transparent 56%),
-		radial-gradient(circle at 86% 22%, rgba(210, 191, 145, 1) 0 3px, rgba(210, 191, 145, 0) 7px),
-		radial-gradient(circle at 62% 34%, rgba(210, 191, 145, 1) 0 3px, rgba(210, 191, 145, 0) 7px),
-		radial-gradient(circle at 73% 64%, rgba(210, 191, 145, 1) 0 3px, rgba(210, 191, 145, 0) 7px),
-		radial-gradient(circle at 91% 58%, rgba(210, 191, 145, 1) 0 3px, rgba(210, 191, 145, 0) 7px),
-		radial-gradient(circle at 52% 50%, rgba(210, 191, 145, 1) 0 3px, rgba(210, 191, 145, 0) 7px);
-	filter: drop-shadow(0 0 10px rgba(210, 191, 145, 0.35));
+		radial-gradient(circle at 65% 15%, rgba(210, 191, 145, 0.08), transparent 40%),
+		radial-gradient(circle at 70% 12%, rgba(58, 135, 189, 0.12), transparent 34%),
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%233A87BD' stroke-width='0.6' stroke-opacity='0.1'%3E%3Cpath d='M0 28H62V12H106'/%3E%3Cpath d='M0 58H40V78H84V104H136'/%3E%3Cpath d='M10 180V136H52V114H96'/%3E%3Cpath d='M180 42H146V72H108'/%3E%3Cpath d='M180 142H152V108H124V86H92'/%3E%3Cpath d='M138 180V154H112V132H76'/%3E%3C/g%3E%3Ccircle cx='62' cy='28' r='2.5' fill='%233A87BD' fill-opacity='0.15'/%3E%3Ccircle cx='84' cy='78' r='2.5' fill='%233A87BD' fill-opacity='0.15'/%3E%3C/svg%3E");
+	background-repeat: no-repeat, no-repeat, repeat;
+	background-size: 100% 100%, 100% 100%, 180px 180px;
 	opacity: 0.9;
+	mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
 	pointer-events: none;
-	z-index: 1;
 }
 
 .hero-inner {
 	position: relative;
-	z-index: 2;
+	z-index: 1;
 	text-align: center;
 }
 
@@ -207,7 +191,7 @@ img {
 	height: 132px;
 	z-index: 1;
 	pointer-events: none;
-	opacity: 0;
+	opacity: 0.9;
 }
 
 .data-line {
@@ -713,15 +697,7 @@ h2 {
 		right: 4px;
 		transform: scale(0.72);
 		transform-origin: top right;
-		opacity: 0;
-	}
-
-	.hero::after {
-		top: 24px;
-		right: 16px;
-		width: 210px;
-		height: 120px;
-		opacity: 0.78;
+		opacity: 0.6;
 	}
 
 	.hero {
@@ -786,10 +762,6 @@ h2 {
 	}
 
 	.hero-data-nodes {
-		display: none;
-	}
-
-	.hero::after {
 		display: none;
 	}
 
