@@ -16,6 +16,15 @@
 	>
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://minervaone.eu/">
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZE0BWLCM6E"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag("js", new Date());
+		gtag("config", "G-ZE0BWLCM6E");
+	</script>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -284,6 +293,12 @@
 				});
 
 				if (response.ok) {
+					if (typeof gtag === "function") {
+						gtag("event", "form_submit", {
+							event_category: "engagement",
+							event_label: "contact_form"
+						});
+					}
 					window.location.href = "https://minervaone.eu/thanks.html";
 					return false;
 				}
